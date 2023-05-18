@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>ex-4</title>
+    
+</head>
+<body>
+    <h1>programa que converte horas em minutos e minutos em segundos</h1>
+
+    <div id="app">
+        <div>
+            <h2>introduzca as horas</h2>
+            <input type="number" v-model="hr" @click="convertMin">
+            <!-- <button @click="convertMin">intro </button> -->
+            <!-- <button @clickup.enter="convertMin(min)">intro </button> -->
+            <p>{{min}} minutos</p>
+        </div>
+
+        <div>
+            <h2>introduzca os minutos</h2>
+            <input type="number" v-model="min2" @click="convertSeg">
+            <!-- <button>intro</button> -->
+            <p>{{seg}} segundos</p> 
+        </div>
+    </div>
+
+    <script>
+        Vue.createApp({
+            data(){
+                return{
+                    hr : '',
+                    min : '',
+                    min2 : '',
+                    seg : '',
+                }
+            },
+            methods:{
+                convertMin(){
+                    this.min = this.hr * 60
+                },
+                convertSeg(){
+                    this.seg = this.min2 * 60
+                }
+            } 
+        }).mount('#app');
+    </script>
+</body>
+</html>

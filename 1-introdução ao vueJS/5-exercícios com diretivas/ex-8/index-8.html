@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3"></script>
+  <title>ex-8</title>
+</head>
+<body>
+  <div id="app">
+    <label for="nameInput">qual é o seu nome ?</label>
+    <input type="text" id="nameInput" v-model="name">
+    <p v-if=" name === 'Marco' || name === 'António' ">Olá professor {{ name }}!</p>
+    <p v-else>Olá {{ name }}!</p>
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          name: ''
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

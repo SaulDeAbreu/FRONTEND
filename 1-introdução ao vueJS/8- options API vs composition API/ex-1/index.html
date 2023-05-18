@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Lista de Tareas</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Lista de Tareas</h2>
+      <input type="text" v-model="texto" @keyup.enter="inserirTarefa(texto)" />
+      <button @click="edit=!edit">{{ edit ? "Salvar" : "Editar" }}</button>
+      <ul v-if="!edit">
+        <li v-for="(item, index) in tarefas" :key="index" :class="{ realizado: item.realizada, prioritario: item.prioritario }">
+          {{ item.nome }}
+        </li>
+      </ul>
+      <ul v-else>
+        <li v-for="(item, index) in tarefas" :key="index" :class="{ realizado: item.realizada, prioritario: item.prioritario }">
+          <input type="text" v-model="item.nome" />
+          <input type="checkbox" v-model="item.prioritario" /> Prioritario
+          <input type="checkbox" v-model="item.realizada" /> Realizada
+        </li>
+      </ul>
+    </div>
+    <style>
+      .realizado {
+        text-decoration: line-through;
+        color: grey;
+      }
+      .prioritario {
+        color: red;
+      }
+    </style>
+    <script>
+      Vue.createApp({
+        setup() {
+          const texto = Vue.ref("");
+          const edit = Vue.ref(false);
+          const tarefas = Vue.ref([
+            {
+              nome: "Exercicio de HTML",
+              prioritario: false,
+              realizada: true,
+            },
+            {
+              nome: "Exercicio de CSS",
+              prioritario: false,
+              realizada: false,
+            },
+            {
+              nome: "Exercicio de JavaScript",
+              prioritario: false,
+              realizada: false,
+            },
+            {
+              nome: "Exercicio de Vue.js",
+              prioritario: true,
+              realizada: true,
+            },
+            {
+              nome: "Juntar tudo no Projeto 1",
+              prioritario: false,
+              realizada: false,
+            },
+          ]);
+
+          const inserirTarefa = (item) => {
+            tarefas.value.push({
+              nome: item,
+              prioritario: false,
+              realizada: false,
+            });
+            texto.value = "";
+          };
+
+          return { texto, edit, tarefas, inserirTarefa };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

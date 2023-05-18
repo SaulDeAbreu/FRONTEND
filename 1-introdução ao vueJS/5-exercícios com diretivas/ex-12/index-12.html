@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Jogo de Adivinhação</title>
+</head>
+<body>
+    <div id="app">
+        <h1>JOGOO!</h1>
+        <p>insira um numero do 1 ao 100</p>
+        <label for="guessInput">Digite um número:</label>
+        <input type="number" id="guessInput" v-model="guess">
+        <button @click="checkGuess">Adivinhar</button>
+        <p v-if="feedback !== null">{{ feedback }}</p>
+        <p v-if="gameOver">Você acertou em {{ numGuesses }} tentativa(s)!</p>
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    secretNumber: Math.floor(Math.random() * 100) + 1,
+                    guess: null,
+                    feedback: null,
+                    numGuesses: 0,
+                    gameOver: false,
+                    previousGuess: null
+                }
+            },
+            methods: {
+                checkGuess() {
+                    if (this.guess === this.previousGuess) {
+                        return;
+                    }
+                    this.previousGuess = this.guess;
+                    this.numGuesses++;
+                    if (this.guess === this.secretNumber) {
+                        this.feedback = "Você acertou!";
+                        this.gameOver = true;
+                    } else if (this.guess < this.secretNumber) {
+                        this.feedback = "Muito pequeno!";
+                    } else {
+                        this.feedback = "Muito grande!";
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
